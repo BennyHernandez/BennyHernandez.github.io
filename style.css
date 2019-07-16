@@ -1,0 +1,25 @@
+body {overflow-x: hidden;}
+
+#homeIMG {
+    position: absolute;
+    top: 0;
+    max-height: 500px;
+    min-width: 100%;
+}
+
+.navbar {
+    min-height: 80px;
+}
+
+
+.navbar-brand {
+    font-family: arial;
+}
+
+#home {
+    min-height: 580px;
+}
+
+#stuff .card-header {
+}
+
