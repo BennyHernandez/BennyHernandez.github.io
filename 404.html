@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+2019 Benny Faelz
+-->
+<html>
+    <head>
+        <title>Benny Faelz - 404</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container my-5">
+            <p class="display-1">Error 404</p>
+            <h1>The page you requested does not exist... Check out this cool video while you figure out your life.</h1>
+            <br>
+            <iframe width="760" height="515" id="randomVid" frameborder="0" allowfullscreen allow="autoplay;"></iframe>
+        </div>
+        
+        
+        <script>
+            document.getElementById('randomVid').src = "http://www.youtube.com/embed/videoseries?list=PLU2xRjsF0L5A1mwxQf2wShbX4GugGwhcM&autoplay=1&index=" + getRndInteger(0, 7);
+            document.getElementById("randomVid").playVideo();
+            function getRndInteger(min, max) {
+                return Math.floor(Math.random() * (max - min)) + min;
+              }
+        </script>
+    </body>
+</html>

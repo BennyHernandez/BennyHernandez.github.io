@@ -5,6 +5,7 @@ body {overflow-x: hidden;}
     top: 0;
     max-height: 500px;
     min-width: 100%;
+    max-width: fit-content;
 }
 
 .navbar {
@@ -18,6 +19,7 @@ body {overflow-x: hidden;}
 
 #home {
     min-height: 580px;
+    width: 100%;
 }
 
 #stuff .card-header {
