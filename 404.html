@@ -14,13 +14,12 @@
             <p class="display-1">Error 404</p>
             <h1>The page you requested does not exist... Check out this cool video while you figure out your life.</h1>
             <br>
-            <iframe width="760" height="515" id="randomVid" frameborder="0" allowfullscreen allow="autoplay;"></iframe>
+            <iframe width="760" height="515" id="randomVid" frameborder="0" allowfullscreen></iframe>
         </div>
         
         
         <script>
-            document.getElementById('randomVid').src = "http://www.youtube.com/embed/videoseries?list=PLU2xRjsF0L5A1mwxQf2wShbX4GugGwhcM&autoplay=1&index=" + getRndInteger(0, 7);
-            document.getElementById("randomVid").playVideo();
+            document.getElementById('randomVid').src = "https://www.youtube.com/embed/videoseries?list=PLU2xRjsF0L5A1mwxQf2wShbX4GugGwhcM&autoplay=1&index=" + getRndInteger(0, 7);
             function getRndInteger(min, max) {
                 return Math.floor(Math.random() * (max - min)) + min;
               }
