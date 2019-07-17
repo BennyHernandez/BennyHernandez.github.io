@@ -22,6 +22,6 @@ body {overflow-x: hidden;}
     width: 100%;
 }
 
-#stuff .card-header {
+#social .fab {
+    margin: 5px;
 }
-
