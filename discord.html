@@ -1,0 +1,137 @@
+<h1>Discord Bot Thing</h1>
+<br>
+<br>
+<button onclick="start()">Start listening</button>
+<button onclick="stop()">Stop listening</button>
+<br>
+<br>
+<input type="text" value="ALEXA" id="keyword">
+<button onclick="set()">Set Keyword</button>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+var recognition, div, languageSelected, isStopButtonClicked, isTalking = false;
+
+var keyword = "ALEXA"
+
+const init = () => {
+  div = document.createElement('div');
+  div.className = 'live-caption';
+
+  setDivStyle(div);
+
+  recognition = new webkitSpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = languageSelected || "en-US";
+
+  recognition.onresult = event => {
+    let last = event.results.length - 1;
+    let lastTranscript = event.results[last][0].transcript;
+    let interim_transcript = '';
+    let final_transcript = '';
+
+    for (var i = event.resultIndex; i < event.results.length; ++i) {
+        // Verify if the recognized text is the last with the isFinal property
+      if (event.results[i].isFinal) {
+        final_transcript += event.results[i][0].transcript;
+      } else {
+        interim_transcript += event.results[i][0].transcript;
+      }
+    }
+	
+	if (interim_transcript.toUpperCase() === keyword) {
+		isTalking = true;
+	} else if (interim_transcript.toUpperCase() === "") {
+		isTalking = false;
+		
+		if (final_transcript.split(" ")[0].toUpperCase() === keyword) {
+			$.ajax({
+				url: 'http://pc.bennyfaelz.com:30122/matches',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({"keyword" : keyword,"music": final_transcript}),
+				success: function(response){console.log("Sent to bot!")}
+			});
+		}
+	}
+
+	if (isTalking) {
+		//$(".textArea-2Spzkt").val(interim_transcript);
+		
+		//document.getElementsByClassName("textArea-2Spzkt").value += interim_transcript;
+		
+		div.textContent = interim_transcript;
+		document.body.appendChild(div);
+	}
+  }
+
+  recognition.onerror = event => {
+    console.log("error", event.error)
+	isTalking = false;
+    if(event.error === 'not-allowed'){
+      const errorMessage = "AudioCapture permission has been blocked because of a Feature Policy applied to the current document. See https://goo.gl/EuHzyv for more details.";
+      chrome.runtime.sendMessage({error: errorMessage})
+      isStopButtonClicked = true;
+      recognition.stop();
+    }
+  }
+
+  recognition.onspeechstart = event => console.log("speech started");
+  recognition.onspeechend = event => stopTracking();
+  recognition.onend = function(event) {
+    if (isStopButtonClicked) {
+      stopTracking()
+    } else {
+      startTracking()
+    }
+  }
+}
+
+const startTracking = () => recognition.start();
+
+const setDivStyle = div => {
+  div.style.bottom = '10px';
+  div.style.left = 0;
+  div.style.textAlign = 'center';
+  div.style.backgroundColor = 'rgba(0,0,0,0.8)';
+  div.style.position = 'absolute';
+  div.style.color = 'white';
+  div.style.padding = '10px';
+  div.style.fontSize = '30px';
+  div.style.width = '50%';
+  div.style.transform = 'translate(50%)';
+  div.style.border = '2px solid white';
+  div.style.borderRadius = "5px";
+  div.style.zIndex= "10000";
+  div.style.fontFamily = "Arial";
+}
+
+const stopTracking = () => {
+  recognition.stop();
+  if(document.body.contains(div)){
+    document.body.removeChild(div);
+  }
+}
+
+init();
+
+function start() {
+    isStopButtonClicked = false
+    startTracking();
+	console.log("start");
+}
+
+function stop() {
+    isStopButtonClicked = true
+    stopTracking();
+	console.log("stop");
+}
+
+function set() {
+keyword = $("#keyword").val().toUpperCase();
+console.log("set: " + keyword);
+}
+
+</script>
