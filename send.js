@@ -18,7 +18,7 @@ function sendDeafen(value) {
     $.ajax({
         url: 'http://127.0.0.1:5000/lightControl',
         type: 'POST',
-        data: JSON.stringify({ "type": "mute", "value": }),
+        data: JSON.stringify({ "type": "mute", "value": value}),
         success: function (response) { console.log("Sent to bot!") }
     });
 }
