@@ -29,3 +29,10 @@ function sendDeafen(value) {
         success: function (response) { console.log("Sent to bot!") }
     });
 }
+
+$(".content-3at_AU").click(function () {
+    console.log("click");
+    if ($(this).next("svg[name='Speaker']")) {
+        console.log("click on voice");
+    }
+});
