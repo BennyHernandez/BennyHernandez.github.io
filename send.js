@@ -36,3 +36,26 @@ $(".content-3at_AU").click(function () {
         console.log("click on voice");
     }
 });
+
+var notifcations, previousNotifications;
+
+function notificationCheck() {
+    notifcations = 0;
+    $(".numberBadge-2s8kKX").each(function () {
+        notifcations = notifcations + Number(this.innerHTML)
+    });
+
+    if (notifcations != previousNotifications) {
+        sendNotification(notifcations);
+    }
+    previousNotifications = notifcations;
+}
+
+function sendNotification(value) {
+    $.ajax({
+        url: 'http://127.0.0.1:5000/lightControl',
+        type: 'POST',
+        data: JSON.stringify({ "type": "notification", "value": value }),
+        success: function (response) { console.log("Sent to bot!") }
+    });
+}
