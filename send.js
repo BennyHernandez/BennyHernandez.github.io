@@ -49,7 +49,7 @@ function notificationCheck() {
         sendNotification(notifcations);
     }
     previousNotifications = notifcations;
-    setTimeout(notificationCheck, 5000);
+    setTimeout(notificationCheck, 1000);
 }
 
 notificationCheck();
