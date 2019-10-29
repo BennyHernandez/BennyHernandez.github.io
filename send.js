@@ -45,11 +45,14 @@ function notificationCheck() {
         notifcations = notifcations + Number(this.innerHTML)
     });
 
-    if (notifcations != previousNotifications) {
+    if (notifcations < previousNotifications) {
         sendNotification(notifcations);
     }
     previousNotifications = notifcations;
+    setTimeout(notificationCheck, 5000);
 }
+
+notificationCheck();
 
 function sendNotification(value) {
     $.ajax({
