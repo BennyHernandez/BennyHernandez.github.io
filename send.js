@@ -45,7 +45,7 @@ function notificationCheck() {
         notifcations = notifcations + Number(this.innerHTML)
     });
 
-    if (notifcations < previousNotifications) {
+    if (notifcations > previousNotifications) {
         sendNotification(notifcations);
     }
     previousNotifications = notifcations;
