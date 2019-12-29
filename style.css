@@ -25,3 +25,7 @@ html, body {overflow-x: hidden;}
 #social .fab {
     margin: 5px;
 }
+
+i {
+    color: grey;
+}
